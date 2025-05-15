@@ -501,12 +501,33 @@
       <t-carousel-item uid="3">3</t-carousel-item>
       <t-carousel-item uid="4">4</t-carousel-item>
     </t-carousel>
+    <h2>Loading</h2>
+    <h3>区域加载</h3>
+    <t-table
+      :column-data="columnData"
+      :table-data="tableData"
+      border
+      v-loading="true"
+      loading-text="加载中"
+    />
+    <t-table
+      :column-data="columnData"
+      :table-data="tableData"
+      border
+      v-loading="true"
+      loading-text="等待中"
+      loading-background="rgba(122, 122, 122, 0.6)"
+    />
+    <h3>让加载组件铺满整个屏幕</h3>
+    <t-button type="primary" @click="openFullScreenLoading"
+      >As a service</t-button
+    >
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { TMessage } from "@test-ui/components";
+import { TMessage, TLoading } from "@test-ui/components";
 import {
   treeData,
   columnData,
@@ -584,6 +605,17 @@ const handleNextStep = () => {
   if (active.value > 4) {
     active.value = 0;
   }
+};
+
+const openFullScreenLoading = () => {
+  const loading = TLoading.service({
+    text: "全屏加载",
+    background: "rgba(0, 0, 0, 0.7)",
+  });
+
+  setTimeout(() => {
+    loading.close();
+  }, 3000);
 };
 </script>
 

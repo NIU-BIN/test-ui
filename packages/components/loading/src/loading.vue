@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['t-loading-mask', { 't-loading-mask--screen': screen }]"
+    :class="['t-loading', { 't-loading-mask--screen': screen }]"
     :style="{
       'background-color': background,
     }"

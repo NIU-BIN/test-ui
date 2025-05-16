@@ -14,6 +14,18 @@ const vLoading = {
   mounted(el, binding) {
     const value = binding.value;
     if (value) createLoading(el);
+  },
+  updated(el, binding) {
+    if (!binding.value && binding.value !== binding.oldValue) {
+      el.removeChild(el.querySelector('.t-loading'))
+      render(null, el)
+    } else if (binding.value && binding.value !== binding.oldValue) {
+      createLoading(el);
+    }
+  },
+  unmounted(el) {
+    el.removeChild(el.querySelector('.t-loading'))
+    render(null, el)
   }
 }
 

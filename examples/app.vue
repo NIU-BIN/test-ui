@@ -507,21 +507,22 @@
       :column-data="columnData"
       :table-data="tableData"
       border
-      v-loading="true"
+      v-loading="loading"
       loading-text="加载中"
     />
-    <t-table
+    <!-- <t-table
       :column-data="columnData"
       :table-data="tableData"
       border
-      v-loading="true"
+      v-loading="loading"
       loading-text="等待中"
       loading-background="rgba(122, 122, 122, 0.6)"
-    />
+    /> -->
+    <t-button @click="loading = !loading">切换加载状态</t-button>
     <h3>让加载组件铺满整个屏幕</h3>
-    <t-button type="primary" @click="openFullScreenLoading"
-      >As a service</t-button
-    >
+    <t-button type="primary" @click="openFullScreenLoading">
+      As a service
+    </t-button>
   </div>
 </template>
 
@@ -573,11 +574,6 @@ const todoList = {
     { title: "夜生活开始", time: "10:00" },
   ],
 };
-
-setTimeout(() => {
-  loading.value = false;
-}, 3000);
-
 const handleMessage = (type, showClose, time) => {
   TMessage({
     type,

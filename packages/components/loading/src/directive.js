@@ -5,7 +5,8 @@ const createLoading = (el) => {
   el.style.position = 'relative';
   const vnode = h(TLoadingComponent, {
     text: el.getAttribute('loading-text'),
-    background: el.getAttribute('loading-background')
+    background: el.getAttribute('loading-background'),
+    icon: el.getAttribute('loading-spinner')
   })
   render(vnode, el)
 }
@@ -29,14 +30,14 @@ const vLoading = {
   }
 }
 
-export const createGlobalLoading = ({ text, background }) => {
+export const createGlobalLoading = ({ text, background, loadingSpinner }) => {
   let vnode = h(TLoadingComponent, {
     text,
     loadingBackground: background,
-    screen: true
+    screen: true,
+    icon: loadingSpinner
   })
   window.document.body.classList.add('t-loading-screen-parent')
-  // window.document.body.style.overflow = 'hidden'
   render(vnode, window.document.body)
   return {
     close() {

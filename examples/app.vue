@@ -510,18 +510,35 @@
       v-loading="loading"
       loading-text="加载中"
     />
-    <!-- <t-table
+    <t-table
       :column-data="columnData"
       :table-data="tableData"
       border
       v-loading="loading"
       loading-text="等待中"
       loading-background="rgba(122, 122, 122, 0.6)"
-    /> -->
+    />
     <t-button @click="loading = !loading">切换加载状态</t-button>
     <h3>让加载组件铺满整个屏幕</h3>
     <t-button type="primary" @click="openFullScreenLoading">
-      As a service
+      全屏加载
+    </t-button>
+    <h3>自定义图标</h3>
+    <t-table
+      :column-data="columnData"
+      :table-data="tableData"
+      border
+      v-loading="loading"
+      loading-text="loading..."
+      :loading-spinner="loadingSVG1"
+      style="margin-top: 20px"
+    />
+    <t-button
+      type="primary"
+      style="margin-top: 20px"
+      @click="openFullScreenLoading2"
+    >
+      全屏加载自定义图标
     </t-button>
   </div>
 </template>
@@ -583,6 +600,27 @@ const handleMessage = (type, showClose, time) => {
   });
 };
 
+const loadingSVG1 = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" width="42" height="42">
+  <circle cx="21" cy="21" r="5" fill="none" stroke="#5e72e4" stroke-width="2">
+    <animate attributeName="r" from="5" to="18" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="21" cy="21" r="5" fill="none" stroke="#5e72e4" stroke-width="2">
+    <animate attributeName="r" from="5" to="18" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" from="1" to="0" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>
+`;
+const loadingSVG2 = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" width="42" height="42">
+  <circle cx="21" cy="21" r="18" fill="none" stroke="#5e72e4" stroke-width="3" stroke-dasharray="5,5">
+    <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>
+`;
+
 const handleClickNode = (node) => {
   console.log(node);
 };
@@ -607,6 +645,18 @@ const openFullScreenLoading = () => {
   const loading = TLoading.service({
     text: "全屏加载",
     background: "rgba(0, 0, 0, 0.7)",
+  });
+
+  setTimeout(() => {
+    loading.close();
+  }, 3000);
+};
+
+const openFullScreenLoading2 = () => {
+  const loading = TLoading.service({
+    text: "全屏加载",
+    background: "rgba(0, 0, 0, 0.7)",
+    loadingSpinner: loadingSVG2,
   });
 
   setTimeout(() => {
